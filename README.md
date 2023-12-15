@@ -1,6 +1,6 @@
 21 Batam Nest - Project
 
-=
+
 To install the project
 You need to have NPM and Mysql ready!
 and run this commands:
