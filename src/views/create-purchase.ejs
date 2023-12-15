@@ -1,0 +1,132 @@
+<%- include('partials/header.ejs') %>
+<link rel="stylesheet" href="../../public/css/createstyle.css" />
+<%- include('partials/sidebar.ejs') %>
+<section id="content">
+  <!-- Navbar -->
+
+  <!-- Navbar -->
+  <!-- main -->
+  <main>
+    <div class="head-title">
+      <div class="left">
+        <h1>Purchase</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a href="/">Dashboard</a>
+          </li>
+
+          <li><i class="bx bx-chevron-right"></i></li>
+          <li>
+            <a class="active" href="#">Purchase</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- table -->
+
+    <div class="card p-4 border-light border-radius" x-data="invoice">
+      <div class="card-body" x-data="{items: JSON.parse('<%=result%>'), listMaterial:[]}">
+        <button type="button" class="btn btn-warning mb-3" @click="listMaterial.push({id: +new Date()})">
+          Add Material
+        </button>
+        <form action="add" method="post">
+          <table class="table table-striped align-middle">
+            <thead class="table-secondary">
+              <tr>
+                <th>Material Id</th>
+                <th>Material Name</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Amount</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody id="productTableBody">
+              <template x-for="(list, index) in listMaterial" :key="list.id">
+                <tr x-data="{selectedItem: null , quantity:'', price:'', amount:''}">
+                  <td>
+                    <div class="input-group">
+                      <input
+                        :name="`items[${index}][rawMaterialId]`"
+                        min="1"
+                        readonly
+                        class="form-control"
+                        aria-label="Sizing example input"
+                        :value="items[selectedItem]['rawMaterialId']"
+                      />
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="input-group">
+                      <select required class="form-select" @change="selectedItem = $event.target.value">
+                        <option value="">-</option>
+                        <template x-for="(item, index) in items ">
+                          <option :value="index" x-text="item['rawMaterialName']"></option>
+                        </template>
+                      </select>
+                    </div>
+                  </td>
+
+                  <td>
+                    <div class="input-group">
+                      <input
+                        id="quantity"
+                        :name="`items[${index}][quantity]`"
+                        min="1"
+                        type="number"
+                        class="form-control"
+                        x-model="quantity"
+                        aria-label="Sizing example input"
+                        required
+                      />
+                    </div>
+                  </td>
+
+                  <td>
+                    <input
+                      x-mask:dynamic="$money($input)"
+                      x-model="price"
+                      :name="`items[${index}][unitPrice]`"
+                      min="1"
+                      type="text"
+                      class="form-control"
+                      aria-label="Sizing example input"
+                      required
+                    />
+                  </td>
+
+                  <td>
+                    <div class="input-group">
+                      <input
+                        x-model="amount"
+                        x-text="amount = addCommas(quantity * removeCommas(price))"
+                        :name="`items[${index}][amount]`"
+                        :value="price * quantity"
+                        type="text"
+                        class="form-control"
+                        readonly
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-danger" @click="listMaterial.splice(index, 1)">Remove</button>
+                  </td>
+                </tr></template
+              >
+            </tbody>
+          </table>
+          <a href="/sales" class="btn btn-danger">Back</a>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </main>
+</section>
+
+<script src="../../public/js/create-sales.js"></script>
+<script src="../../public/js/number-formater.js"></script>
+
+<%- include('partials/footer.ejs') %>

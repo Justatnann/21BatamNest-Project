@@ -1,0 +1,28 @@
+<%- include('partials/header.ejs') %>
+<link rel="stylesheet" href="../../public/css/Login.css" />
+<div class="rectangle">
+  <div class="content">
+    <div><img src="../../public/img/logo.png" alt="Logo BN" /></div>
+    <h3><strong>Batam Nest 21</strong></h3>
+    <form action="/register" method="post">
+      <label for="username">Name:</label>
+      <div class="form-group">
+        <input type="text" id="username" name="username" placeholder="Enter your username" />
+      </div>
+      <label for="username">Email:</label>
+      <div class="form-group">
+        <input type="text" id="email" name="email" placeholder="Enter your Email" />
+      </div>
+      <label for="password">Password:</label>
+      <div class="form-group">
+        <input minlength="8" type="password" id="password" name="password" placeholder="Enter your password" />
+      </div>
+
+      <a href="/" style="text-decoration: none">
+        <button type="submit">Register</button>
+      </a>
+    </form>
+  </div>
+</div>
+
+<%- include('partials/footer.ejs') %>

@@ -1,0 +1,92 @@
+<%- include('partials/header.ejs') %>
+<link rel="stylesheet" href="../../public/css/inventorystyle.css" />
+<%- include('partials/sidebar.ejs') %>
+<!-- CONTENT -->
+<section id="content">
+  <!-- NAVBAR -->
+  <nav>
+    <i class="bx bx-menu"></i>
+    <form action="#"></form>
+    <p class="switch-mode">Welcome Admin <i class="bx bx-wink-smile"></i></p>
+  </nav>
+  <!-- NAVBAR -->
+
+  <!-- MAIN -->
+  <main>
+    <div class="head-title">
+      <div class="left">
+        <h1>Inventory</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">Dashboard</a>
+          </li>
+          <li><i class="bx bx-chevron-right"></i></li>
+          <li>
+            <a class="active" href="#">Inventory</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <br />
+
+    <div class="table-data">
+      <div class="order">
+        <h2 style="text-align: center">Inventory Item</h2>
+
+        <br />
+
+        <a
+          style="color: white; background-color: #3c91e6; border: none; border-radius: 5px"
+          class="btn button-primary mb-3"
+          href="inventory/create-product"
+          >Add Product
+        </a>
+
+        <table id="barangTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Date</th>
+              <th>Product Name</th>
+              <th>Jumlah</th>
+              <th>Total Rp</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <div id="pagination">
+          <button
+            id="prev"
+            style="border-radius: 10px; width: 100px; color: white; text-align: center; border: none"
+            onclick="prevPage()"
+          >
+            Prev
+          </button>
+          <button
+            id="next"
+            style="border-radius: 10px; width: 70px; color: white; text-align: center; border: none"
+            onclick="nextPage()"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- MAIN -->
+</section>
+<!-- CONTENT -->
+
+<script src="../../public/js/Inventory.js"></script>
+<%- include('partials/footer.ejs') %> ```

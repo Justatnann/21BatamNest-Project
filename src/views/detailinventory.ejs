@@ -1,0 +1,38 @@
+<%- include('partials/header.ejs') %>
+<link rel="stylesheet" href="../../public/css/detailinventory.css" />
+<%- include('partials/sidebar.ejs') %>
+<div id="detail-container">
+  <h1>Detail Inventory</h1>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <td id="detail-id"></td>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <td id="detail-date"></td>
+    </tr>
+    <tr>
+      <th>Nama Barang</th>
+      <td id="detail-nama"></td>
+    </tr>
+    <tr>
+      <th>Harga Jual</th>
+      <td id="detail-harga"></td>
+    </tr>
+    <tr>
+      <th>Jumlah</th>
+      <td id="detail-jumlah"></td>
+    </tr>
+    <tr>
+      <th>Harga Total</th>
+      <td id="detail-harga-total"></td>
+    </tr>
+  </table>
+  <div class="centered-content">
+    <button onclick="history.back()">Back to Inventory</button>
+  </div>
+</div>
+<script src="detailinventory.js"></script>
+<%- include('partials/footer.ejs') %>

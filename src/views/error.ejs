@@ -1,0 +1,15 @@
+<%- include('partials/header.ejs') %>
+
+<div
+  class="d-flex aligns-items-center justify-content-center card text-center w-75 position-absolute top-50 start-50 translate-middle"
+>
+  <div class="card-header">
+    <strong>Error Message</strong>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><%= errorHeader %></h5>
+    <p class="card-text"><%= errorDescription %></p>
+    <button onclick="history.back()" class="btn btn-primary">Back to Dashboard</button>
+  </div>
+</div>
+<%- include('partials/footer.ejs') %>

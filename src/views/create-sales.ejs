@@ -1,0 +1,122 @@
+<%- include('partials/header.ejs') %>
+<link rel="stylesheet" href="../../public/css/createstyle.css" />
+<%- include('partials/sidebar.ejs') %>
+<section id="content">
+  <!-- Navbar -->
+
+  <!-- Navbar -->
+  <!-- main -->
+  <main>
+    <div class="head-title">
+      <div class="left">
+        <h1>Sales</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">Dashboard</a>
+          </li>
+
+          <li><i class="bx bx-chevron-right"></i></li>
+          <li>
+            <a class="active" href="#">Sales</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- table -->
+
+    <div class="card p-4 border-light border-radius" x-data="invoice">
+      <div class="card-body" x-data="{items: JSON.parse('<%= result%>'), listProducts:[]}">
+        <div style="max-width: fit-content" class="alert alert-danger" role="alert" x-show="listProducts.length === 0">
+          <p>Add Product To Your Invoice!</p>
+        </div>
+        <button type="button" class="btn btn-warning mb-3" @click="listProducts.push({id: +new Date()})">
+          Add Product
+        </button>
+        <form action="add" method="post">
+          <table class="table table-striped align-middle">
+            <thead class="table-secondary">
+              <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Available Stock</th>
+                <th>Unit Price</th>
+                <th>Amount</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody id="productTableBody">
+              <template x-for="(list, index) in listProducts" :key="list.id">
+                <tr x-data="{selectedItem: null , quantity:''}">
+                  <td>
+                    <div class="input-group">
+                      <input
+                        :name="`items[${index}][productId]`"
+                        min="1"
+                        readonly
+                        class="form-control"
+                        aria-label="Sizing example input"
+                        :value="items[selectedItem]['productId']"
+                      />
+                    </div>
+                  </td>
+
+                  <td>
+                    <select required class="form-select" @change="selectedItem = $event.target.value">
+                      <option value="">-</option>
+                      <template x-for="(item, index) in items ">
+                        <option :value="index" x-text="item['productName']"></option>
+                      </template>
+                    </select>
+                  </td>
+
+                  <td>
+                    <div class="input-group">
+                      <input
+                        id="quantity"
+                        :name="`items[${index}][quantity]`"
+                        min="1"
+                        type="number"
+                        class="form-control"
+                        x-model="quantity"
+                        aria-label="Sizing example input"
+                        required
+                      />
+                    </div>
+                  </td>
+
+                  <td x-text="items[selectedItem]['productStock'] - quantity"></td>
+                  <td x-text="addCommas(items[selectedItem]['productPrice'])"></td>
+                  <td>
+                    <div class="input-group">
+                      <input
+                        x-text="addCommas(items[selectedItem]['productPrice'] * quantity)"
+                        :name="`items[${index}][amount]`"
+                        :value="items[selectedItem]['productPrice'] * quantity"
+                        type="number"
+                        class="form-control"
+                        readonly
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-danger" @click="listProducts.splice(index, 1)">Remove</button>
+                  </td>
+                </tr></template
+              >
+            </tbody>
+          </table>
+          <a href="/sales" class="btn btn-danger">Back</a>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </main>
+</section>
+
+<script src="../../public/js/create-sales.js"></script>
+<script src="../../public/js/number-formater.js"></script>
+
+<%- include('partials/footer.ejs') %>

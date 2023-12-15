@@ -1,0 +1,66 @@
+<%- include('partials/header.ejs') %>
+<link rel="stylesheet" href="../../public/css/Indexstyle.css" />
+<%- include('partials/sidebar.ejs') %>
+<section id="content">
+  <!-- Navbar -->
+
+  <!-- Navbar -->
+  <!-- main -->
+  <main>
+    <div class="head-title">
+      <div class="left">
+        <h1>Dashboard</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">Dashboard</a>
+          </li>
+          <li><i class="bx bx-chevron-right"></i></li>
+          <li>
+            <a class="active" href="#">Sales Invoice History</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- table -->
+    <br />
+    <div class="table-data" x-data="{invoice: JSON.parse('<%= result %>')}">
+      <div class="order">
+        <div class="container">
+          <table id="data-table">
+            <h2 style="text-align: center">Sales Invoice History</h2>
+            <br />
+            <thead>
+              <tr>
+                <th style="background-color: #f2f2f2">No</th>
+                <th style="background-color: #f2f2f2">Sales ID</th>
+                <th style="background-color: #f2f2f2">Date</th>
+                <th style="background-color: #f2f2f2">Total (Rp)</th>
+                <th style="background-color: #f2f2f2">Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <template x-for="(listInvoice, index) in invoice">
+                <tr>
+                  <td x-text="index + 1"></td>
+                  <td x-text="listInvoice['salesId']"></td>
+                  <td x-text="dateFormatter(listInvoice['salesDate'])"></td>
+                  <td x-text="addCommas(listInvoice['amountSold'])"></td>
+                  <td>
+                    <a x-bind:href="`sales/detail?id=` + `${listInvoice['salesId']}`" class="btn btn-primary">View</a>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</section>
+
+<!-- <script src="../../public/js/indexScript.js"></script> -->
+<script src="../../public/js/date-format.js"></script>
+<script src="../../public/js/number-formater.js"></script>
+<%- include('partials/footer.ejs') %> ```

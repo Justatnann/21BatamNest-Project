@@ -1,0 +1,66 @@
+<%- include('partials/header.ejs') %>
+<link rel="stylesheet" href="../../public/css/Sales.css" />
+<%- include('partials/sidebar.ejs') %>
+<section id="content">
+  <main>
+    <div class="container">
+      <div class="left">
+        <div class="card" x-data="{items: JSON.parse('<%= result %>'), id: JSON.parse('<%= id %>')}">
+          <div class="card-header"><h2 class="pt-3 pl-3">Detail Sales Invoice</h2></div>
+          <div class="card-body">
+            <div>
+              <div class="row mb-3">
+                <label for="inputSalesId" class="col-sm-2 col-form-label">Sales Invoice Id</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="salesId" :value="id[0]['salesId']" readonly />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputSalesId" class="col-sm-2 col-form-label">Sales Date</label>
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="salesId"
+                    :value="dateFormatter(id[0]['salesDate'])"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="table-data">
+              <table class="table table-responsive table-striped">
+                <thead class="table-secondary">
+                  <th>No</th>
+                  <th>Product Name</th>
+                  <th>Product Price</th>
+                  <th>Quantity</th>
+                  <th>Total (Rp)</th>
+                </thead>
+                <tbody>
+                  <template x-for="(item, index) in items"
+                    ><tr>
+                      <td x-text="index + 1"></td>
+                      <td x-text="item['productName']"></td>
+                      <td x-text="addCommas(item['unitPrice'])"></td>
+                      <td x-text="item['quantity']"></td>
+                      <td x-text="addCommas(item['totalPrice'])"></td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="m-3">
+            <a class="btn btn-primary" href="/"><b>Back</b></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</section>
+
+<script src="../../public/js/date-format.js"></script>
+<script src="../../public/js/number-formater.js"></script>
+<script src="../../public/js/detail.js"></script>
+<%- include('partials/footer.ejs') %>

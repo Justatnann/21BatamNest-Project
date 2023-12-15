@@ -1,0 +1,64 @@
+<%- include('partials/header.ejs') %>
+<link rel="stylesheet" href="../../public/css/createstyle.css" />
+<%- include('partials/sidebar.ejs') %>
+<section id="content">
+  <!-- Navbar -->
+
+  <!-- Navbar -->
+
+  <!-- Navbar -->
+  <!-- main -->
+  <main>
+    <div class="head-title">
+      <div class="left">
+        <h1>Add Product</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">Dashboard</a>
+          </li>
+
+          <li><i class="bx bx-chevron-right"></i></li>
+          <li>
+            <a>Inventory</a>
+          </li>
+          <li><i class="bx bx-chevron-right"></i></li>
+          <li>
+            <a class="active" href="#">Add Material</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- table -->
+    <br />
+    <div class="card p-4 border-light border-radius">
+      <div class="card-body">
+        <form action="">
+          <div class="row mb-3">
+            <label for="inputProductName" class="col-sm-2 col-form-label">Material Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="material[0][name]" placeholder="Dried Bird Nest..." />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputProductPrice" class="col-sm-2 col-form-label">Material Stock</label>
+            <div class="col-sm-10">
+              <input name="material[0][stock]" type="text" class="form-control" placeholder="Rp" />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputProductQuantity" class="col-sm-2 col-form-label">Unit</label>
+            <div class="col-sm-10">
+              <input name="material[0][unit]" type="text" class="form-control" placeholder="gram, pcs, ..." />
+            </div>
+          </div>
+
+          <button class="btn btn-primary">Submit</button>
+          <a class="btn btn-danger" type="a" href="/inventory/material">Back</a>
+        </form>
+      </div>
+    </div>
+  </main>
+</section>
+<script src="../../public/js/create-purchase.js"></script>
+<%- include('partials/footer.ejs') %>

@@ -1,0 +1,1 @@
+ALTER TABLE `raw_material` DROP COLUMN `raw_material_price`;

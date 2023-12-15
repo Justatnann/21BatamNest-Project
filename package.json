@@ -1,0 +1,71 @@
+{
+ 
+  "dependencies": {
+ 
+   
+  "bcrypt": "^5.1.1",
+ 
+   
+  "dotenv": "^16.3.1",
+ 
+   
+  "ejs": "^3.1.9",
+ 
+   
+  "express": "^4.18.2",
+ 
+   
+  "express-session": "^1.17.3"
+ 
+  },
+ 
+  "name": "batam-nest-finance",
+ 
+  "version": "1.0.0",
+ 
+  "description": "Finance and Inventory Management for Batam Nest",
+ 
+  "main": "index.js",
+ 
+  "scripts": {
+ 
+   
+  "start": "node app.js",
+ 
+   
+  "drop": "drizzle-kit drop",
+ 
+   
+  "migrate": "node drizzle/migration.js",
+ 
+   
+  "dev": "nodemon -e ejs,js,json app.js",
+ 
+   
+  "generate": "drizzle-kit generate:mysql",
+ 
+   
+  "test": "echo \"Error: no test specified\" && exit 1"
+ 
+  },
+ 
+  "author": "Atnan, Kelvin, Rayson, Wildan",
+ 
+  "license": "OSC",
+ 
+  "devDependencies": {
+ 
+   
+  "drizzle-kit": "^0.20.2",
+ 
+   
+  "drizzle-orm": "^0.29.0",
+ 
+   
+  "mysql": "github:mysqljs/mysql",
+ 
+   
+  "mysql2": "^3.6.3"
+ 
+  }
+}

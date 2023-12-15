@@ -1,0 +1,1 @@
+ALTER TABLE `purchase_item` MODIFY COLUMN `total_price` bigint NOT NULL;

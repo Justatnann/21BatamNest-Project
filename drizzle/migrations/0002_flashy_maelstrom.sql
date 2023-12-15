@@ -1,0 +1,1 @@
+ALTER TABLE `stock_material` RENAME COLUMN `stock_sold` TO `stock_purchase`;

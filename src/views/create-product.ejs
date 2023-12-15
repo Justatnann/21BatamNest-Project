@@ -1,0 +1,144 @@
+<%- include('partials/header.ejs') %>
+<link rel="stylesheet" href="../../public/css/createstyle.css" />
+<%- include('partials/sidebar.ejs') %>
+<section id="content">
+  <!-- Navbar -->
+
+  <!-- Navbar -->
+
+  <!-- Navbar -->
+  <!-- main -->
+  <main>
+    <div class="head-title">
+      <div class="left">
+        <h1>Create Product</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">Dashboard</a>
+          </li>
+
+          <li><i class="bx bx-chevron-right"></i></li>
+          <li>
+            <a class="active" href="#">Create Product</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- form -->
+    <br />
+    <div class="card p-4 border-light border-radius">
+      <div class="card-body" x-data="{material: JSON.parse('<%=result%>'), listMaterial:[]}">
+        <form action="create-product/add" method="post">
+          <div class="row mb-3">
+            <label for="inputProductName" class="col-sm-2 col-form-label">Product Name</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="product-name"
+                name="product[0][productName]"
+                placeholder="Dried Bird Nest..."
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputProductPrice" class="col-sm-2 col-form-label">Unit Price</label>
+            <div class="col-sm-10">
+              <input
+                x-model="price"
+                x-mask:dynamic="$money($input)"
+                min="0"
+                type="text"
+                class="form-control"
+                id="product-price"
+                placeholder="Rp"
+                name="product[0][unitPrice]"
+              />
+            </div>
+          </div>
+          <br />
+          <div class="row mb-3">
+            <strong><h5>Recipe</h5></strong>
+          </div>
+
+          <!-- recipe -->
+          <div class="row mb-3">
+            <button type="button" class="btn btn-warning mb-3" @click="listMaterial.push({id: +new Date()})">
+              Add Material
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped align-middle">
+              <thead class="table-secondary">
+                <template x-if="listMaterial.length > 0">
+                  <tr>
+                    <th x-text="console.log(material)">Material Id</th>
+                    <th>Material Name</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                  </tr>
+                </template>
+              </thead>
+
+              <tbody>
+                <template x-for="(list,index) in listMaterial" :key="list.id">
+                  <tr x-data="{selectedItem : null, quantity: ''}">
+                    <td style="max-width: 40px">
+                      <div class="input-group">
+                        <input
+                          required
+                          :name="`recipe[${index}][rawMaterialId]`"
+                          readonly
+                          class="form-control"
+                          :value="material[selectedItem]['rawMaterialId']"
+                        />
+                      </div>
+                    </td>
+
+                    <td>
+                      <div class="input-group">
+                        <select required class="form-select" @change="selectedItem = $event.target.value">
+                          <option value="">-</option>
+                          <template x-for="(item, index) in material ">
+                            <option :value="index" x-text="item['rawMaterialName']"></option>
+                          </template>
+                        </select>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="input-group">
+                        <input
+                          id="quantity"
+                          :name="`recipe[${index}][quantity]`"
+                          min="1"
+                          type="number"
+                          class="form-control"
+                          x-model="quantity"
+                          aria-label="Sizing example input"
+                          required
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-danger" @click="listMaterial.splice(index, 1)">
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <button class="btn btn-primary">Submit</button>
+            <a class="btn btn-danger" href="product">Back</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</section>
+<script src="../../public/js/create-purchase.js"></script>
+<%- include('partials/footer.ejs') %>
