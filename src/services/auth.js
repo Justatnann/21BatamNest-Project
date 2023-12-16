@@ -6,7 +6,7 @@ const loginService = async (req, res) => {
     const { email, password } = req.body;
     const user = await login(email, password);
     req.session.isLogin = true;
-    req.session.user = user;
+    req.session.user = user.userId;
     res.redirect("/");
   } catch (error) {
     res.status(500).render("../src/views/error.ejs", { errorHeader: error.message, errorDescription: error.stack });

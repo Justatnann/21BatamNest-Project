@@ -52,7 +52,35 @@
                   <td x-text="addCommas(listInvoice['amountPurchase'])"></td>
 
                   <td>
-                    <button class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      Delete
+                    </button>
+
+                    <!-- Modal -->
+                    <div
+                      class="modal fade ml-3"
+                      id="exampleModal"
+                      tabindex="-1"
+                      aria-labelledby="exampleModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"><strong>Confirmation</strong></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>Are You Sure to Delete this Invoice ?</p>
+                            <strong style="color: red">Deleted Data will not able to be recover</strong>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger">Save changes</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <a :href="`purchase/detail?id=`+`${listInvoice['purchaseId']}`" class="btn btn-primary">View</a>
                   </td>
                 </tr>

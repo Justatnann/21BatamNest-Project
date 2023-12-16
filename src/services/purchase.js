@@ -83,7 +83,7 @@ const addPurchase = async (req, res) => {
     };
     const total = sumTotal();
     await db.transaction(async (tx) => {
-      await db.insert(purchaseInvoice).values({ amountPurchase: total, UserId: 1 });
+      await db.insert(purchaseInvoice).values({ amountPurchase: total, UserId: req.session.user });
       const invoiceId = await db.select().from(purchaseInvoice).orderBy(desc(purchaseInvoice.purchaseId)).limit(1);
 
       for (const item of items) {

@@ -79,7 +79,7 @@ const addSales = async (req, res) => {
     };
     const total = sumTotal();
     await db.transaction(async (tx) => {
-      await db.insert(salesInvoice).values({ amountSold: total, UserId: 1 });
+      await db.insert(salesInvoice).values({ amountSold: total, UserId: req.session.user });
       const invoiceId = await db.select().from(salesInvoice).orderBy(desc(salesInvoice.salesId)).limit(1);
 
       for (const item of items) {
