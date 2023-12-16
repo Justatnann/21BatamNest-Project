@@ -10,6 +10,9 @@ const getSales = async (req, res) => {
     const result = JSON.stringify(salesInvoices);
     res.render("../src/views/sales.ejs", { result });
   } catch (error) {
+    if (error.message === "connect ECONNREFUSED ::1:3306") {
+      res.render("../src/views/sales.ejs", { result: "[]" });
+    }
     res.status(500).render("../src/views/error.ejs", { errorHeader: error.message, errorDescription: error.stack });
   }
 };

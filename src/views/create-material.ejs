@@ -33,23 +33,29 @@
     <br />
     <div class="card p-4 border-light border-radius">
       <div class="card-body">
-        <form action="">
+        <form action="create-material/add" method="post">
           <div class="row mb-3">
             <label for="inputProductName" class="col-sm-2 col-form-label">Material Name</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="material[0][name]" placeholder="Dried Bird Nest..." />
+              <input
+                required
+                type="text"
+                class="form-control"
+                name="material[0][name]"
+                placeholder="Dried Bird Nest..."
+              />
             </div>
           </div>
           <div class="row mb-3">
             <label for="inputProductPrice" class="col-sm-2 col-form-label">Material Stock</label>
             <div class="col-sm-10">
-              <input name="material[0][stock]" type="text" class="form-control" placeholder="Rp" />
+              <input required name="material[0][stock]" type="text" class="form-control" placeholder="123..." />
             </div>
           </div>
           <div class="row mb-3">
             <label for="inputProductQuantity" class="col-sm-2 col-form-label">Unit</label>
             <div class="col-sm-10">
-              <input name="material[0][unit]" type="text" class="form-control" placeholder="gram, pcs, ..." />
+              <input required name="material[0][unit]" type="text" class="form-control" placeholder="gram, pcs, ..." />
             </div>
           </div>
 

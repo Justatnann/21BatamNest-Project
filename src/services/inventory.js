@@ -10,6 +10,35 @@ const getMaterial = async (req, res) => {
     const result = JSON.stringify(material);
     res.render("../src/views/create-product.ejs", { result });
   } catch (error) {
+    if (error.message === "connect ECONNREFUSED ::1:3306") {
+      res.render("../src/views/inventory.ejs", { result: "[]" });
+    }
+    res.status(500).render("../src/views/error.ejs", { errorHeader: error.message, errorDescription: error.stack });
+  }
+};
+
+const getListMaterial = async (req, res) => {
+  try {
+    const material = await db.select().from(rawMaterial);
+    const result = JSON.stringify(material);
+    res.render("../src/views/inventory-material.ejs", { result });
+  } catch (error) {
+    if (error.message === "connect ECONNREFUSED ::1:3306") {
+      res.render("../src/views/inventory-material.ejs", { result: "[]" });
+    }
+    res.status(500).render("../src/views/error.ejs", { errorHeader: error.message, errorDescription: error.stack });
+  }
+};
+const getMaterialDetail = async (req, res) => {
+  try {
+    const materialId = req.query.id;
+    const material = await db.select().from(rawMaterial).where(eq(rawMaterial.rawMaterialId, materialId));
+    const result = JSON.stringify(material);
+    res.render("../src/views/detail-material.ejs", { result });
+  } catch (error) {
+    if (error.message === "connect ECONNREFUSED ::1:3306") {
+      res.render("../src/views/inventory-material.ejs", { result: "[]" });
+    }
     res.status(500).render("../src/views/error.ejs", { errorHeader: error.message, errorDescription: error.stack });
   }
 };
@@ -41,4 +70,18 @@ const addProduct = async (req, res) => {
   }
 };
 
-module.exports = { getMaterial, addProduct };
+const addMaterial = async (req, res) => {
+  try {
+    const material = req.body.material;
+    await db.transaction(async (tx) => {
+      await tx
+        .insert(rawMaterial)
+        .values({ rawMaterialName: material[0].name, rawMaterialStock: 0, unit: material[0].unit });
+    });
+    res.redirect("/inventory/material");
+  } catch (error) {
+    res.status(500).render("../src/views/error.ejs", { errorHeader: error.message, errorDescription: error.stack });
+  }
+};
+
+module.exports = { getMaterial, addProduct, getListMaterial, getMaterialDetail, addMaterial };

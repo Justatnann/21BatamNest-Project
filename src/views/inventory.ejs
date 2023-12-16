@@ -15,14 +15,14 @@
   <main>
     <div class="head-title">
       <div class="left">
-        <h1>Inventory</h1>
+        <h1>Inventory Material</h1>
         <ul class="breadcrumb">
           <li>
             <a href="#">Dashboard</a>
           </li>
           <li><i class="bx bx-chevron-right"></i></li>
           <li>
-            <a class="active" href="#">Inventory</a>
+            <a class="active" href="#">Inventory Material</a>
           </li>
         </ul>
       </div>
@@ -31,38 +31,44 @@
 
     <div class="table-data">
       <div class="order">
-        <h2 style="text-align: center">Inventory Item</h2>
+        <h2 style="text-align: center">Materials</h2>
 
         <br />
 
         <a
+          class="btn mb-3"
+          href="create-material"
           style="color: white; background-color: #3c91e6; border: none; border-radius: 5px"
-          class="btn button-primary mb-3"
-          href="inventory/create-product"
-          >Add Product
+        >
+          Add Material
         </a>
 
-        <table id="barangTable">
+        <table id="barangTable" x-data="{material: JSON.parse('<%= result %>')}">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Date</th>
-              <th>Product Name</th>
-              <th>Jumlah</th>
-              <th>Total Rp</th>
+              <th>No</th>
+              <th>Material Id</th>
+              <th>Material Name</th>
+              <th>Stock</th>
+              <th>Unit Measure</th>
               <th>Action</th>
             </tr>
           </thead>
 
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+            <template x-for="(materials, index) in material"
+              ><tr>
+                <td x-text="index + 1"></td>
+                <td x-text="materials['rawMaterialId']"></td>
+                <td x-text="materials['rawMaterialName']"></td>
+                <td x-text="materials['rawMaterialStock']"></td>
+                <td x-text="materials['unit']"></td>
+                <td>
+                  <a class="btn btn-primary" href="edit">Edit</a>
+                  <a class="btn btn-danger" href="delete">Delete</a>
+                </td>
+              </tr>
+            </template>
           </tbody>
         </table>
         <div id="pagination">
@@ -88,5 +94,4 @@
 </section>
 <!-- CONTENT -->
 
-<script src="../../public/js/Inventory.js"></script>
 <%- include('partials/footer.ejs') %> ```

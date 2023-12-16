@@ -11,6 +11,48 @@ const getPurchase = async (req, res) => {
 
     res.render("../src/views/purchase.ejs", { result });
   } catch (error) {
+    if (error.message === "connect ECONNREFUSED ::1:3306") {
+      res.render("../src/views/purchase.ejs", { result: "[]" });
+    }
+    res.status(500).render("../src/views/error.ejs", { errorHeader: error.message, errorDescription: error.stack });
+  }
+};
+
+const getPurchaseDetail = async (req, res) => {
+  try {
+    let items = [];
+    const purchaseInvoiceId = req.query.id;
+
+    // get purchase invoice item
+    const purchaseInvoiceItems = await db
+      .select()
+      .from(purchaseInvoiceItem)
+      .where(eq(purchaseInvoiceItem.purchaseInvoiceId, purchaseInvoiceId));
+    //get purchase invoice
+    const Invoice = await db.select().from(purchaseInvoice).where(eq(purchaseInvoice.purchaseId, purchaseInvoiceId));
+
+    // get material
+    const material = await db
+      .select()
+      .from(rawMaterial)
+      .where(eq(rawMaterial.rawMaterialId, purchaseInvoiceItems[0].rawMaterialId));
+
+    //looping for every item in invoice to push to an array
+    for (const item of purchaseInvoiceItems) {
+      items.push({
+        materialName: material[0].rawMaterialName,
+        purchaseDate: Invoice[0].purchaseDate,
+        unitPrice: item.unitPrice,
+        quantity: item.quantity,
+        totalPrice: item.totalPrice,
+      });
+    }
+
+    const result = JSON.stringify(items);
+    const id = JSON.stringify(Invoice);
+
+    res.render("../src/views/detailpurchase.ejs", { result, id });
+  } catch (error) {
     res.status(500).render("../src/views/error.ejs", { errorHeader: error.message, errorDescription: error.stack });
   }
 };
@@ -88,4 +130,4 @@ const addPurchase = async (req, res) => {
   }
 };
 
-module.exports = { createPurchase, addPurchase, getPurchase };
+module.exports = { createPurchase, addPurchase, getPurchase, getPurchaseDetail };

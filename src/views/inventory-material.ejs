@@ -43,45 +43,34 @@
           Add Material
         </a>
 
-        <table id="barangTable">
+        <table id="barangTable" x-data="{material: JSON.parse('<%= result %>')}">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Date</th>
-              <th>Product Name</th>
-              <th>Jumlah</th>
-              <th>Total Rp</th>
+              <th>No</th>
+              <th>Material Id</th>
+              <th>Material Name</th>
+              <th>Stock</th>
+              <th>Unit Measure</th>
               <th>Action</th>
             </tr>
           </thead>
 
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+            <template x-for="(materials, index) in material"
+              ><tr>
+                <td x-text="index + 1"></td>
+                <td x-text="materials['rawMaterialId']"></td>
+                <td x-text="materials['rawMaterialName']"></td>
+                <td x-text="materials['rawMaterialStock']"></td>
+                <td x-text="materials['unit']"></td>
+                <td>
+                  <a class="btn btn-primary" href="edit">Edit</a>
+                  <a class="btn btn-danger" href="delete">Delete</a>
+                </td>
+              </tr>
+            </template>
           </tbody>
         </table>
-        <div id="pagination">
-          <button
-            id="prev"
-            style="border-radius: 10px; width: 100px; color: white; text-align: center; border: none"
-            onclick="prevPage()"
-          >
-            Prev
-          </button>
-          <button
-            id="next"
-            style="border-radius: 10px; width: 70px; color: white; text-align: center; border: none"
-            onclick="nextPage()"
-          >
-            Next
-          </button>
-        </div>
       </div>
     </div>
   </main>
@@ -89,5 +78,4 @@
 </section>
 <!-- CONTENT -->
 
-<script src="../../public/js/Inventory.js"></script>
 <%- include('partials/footer.ejs') %> ```

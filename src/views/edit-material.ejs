@@ -1,0 +1,21 @@
+<%- include('partials/header.ejs') %>
+<link rel="stylesheet" href="../../public/css/detailinventory.css" />
+<%- include('partials/sidebar.ejs') %>
+<div id="detail-container">
+  <h1>Detail Inventory</h1>
+
+  <table>
+    <thead>
+      <th>No</th>
+      <th>Name</th>
+      <th>Nama Barang</th>
+      <th>Stock</th>
+      <th>Unit Measure</th>
+    </thead>
+  </table>
+  <div class="centered-content">
+    <button onclick="history.back()">Back to Inventory</button>
+  </div>
+</div>
+<script src="detailinventory.js"></script>
+<%- include('partials/footer.ejs') %>

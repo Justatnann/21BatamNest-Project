@@ -53,7 +53,7 @@
 
                   <td>
                     <button class="btn btn-danger">Delete</button>
-                    <a href="purchase/detail?id=1" class="btn btn-primary">View</a>
+                    <a :href="`purchase/detail?id=`+`${listInvoice['purchaseId']}`" class="btn btn-primary">View</a>
                   </td>
                 </tr>
               </template>

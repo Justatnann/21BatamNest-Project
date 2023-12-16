@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const path = require("path");
 const { createSales, addSales, getSales, getSalesDetail } = require("../services/sales");
-const { createPurchase, getPurchase, addPurchase } = require("../services/purchase");
+const { createPurchase, getPurchase, addPurchase, getPurchaseDetail } = require("../services/purchase");
 const { loginService, registerService, logoutService } = require("../services/auth");
-const { getMaterial, addProduct } = require("../services/inventory");
+const { getMaterial, addProduct, getListMaterial, getMaterialDetail, addMaterial } = require("../services/inventory");
 const { getSalesHistory } = require("../services/dashboard");
 
 //
@@ -37,9 +37,7 @@ router.get("/sales/create", createSales).post("/sales/add", addSales);
 //purchase
 router.get("/purchase", getPurchase);
 
-router.get("/purchase/detail", (req, res) => {
-  res.render("../src/views/detailpurchase.ejs");
-});
+router.get("/purchase/detail", getPurchaseDetail);
 
 router.get("/purchase/create", createPurchase).post("/purchase/add", addPurchase);
 
@@ -50,15 +48,15 @@ router.get("/inventory/product", (req, res) => {
   res.render("../src/views/inventory.ejs");
 });
 
-router.get("/inventory/material", (req, res) => {
-  res.render("../src/views/inventory-material.ejs");
-});
+router.get("/inventory/material", getListMaterial);
+router.get("/inventory/material/detail", getMaterialDetail);
+router
+  .get("/inventory/create-material", (req, res) => {
+    res.render("../src/views/create-material.ejs");
+  })
+  .post("/inventory/create-material/add", addMaterial);
 
 router.get("/inventory/create-product", getMaterial).post("/inventory/create-product/add", addProduct);
-
-router.get("/inventory/create-material", (req, res) => {
-  res.render("../src/views/create-material.ejs");
-});
 
 router.get("/inventory/detail", (req, res) => {
   res.render("../src/views/detailInventory.ejs");
