@@ -22,27 +22,69 @@
 
     <div class="table-data">
       <div class="order">
-        <div class="head">
+        <div class="head" x-data="{wip: JSON.parse('<%= result %>')}">
           <h2 style="text-align: center">Work In Progress</h2>
           <a
             class="btn button-primary mb-3"
-            href="/inventory/create"
+            href="wip/create"
             style="color: white; background-color: #3c91e6; border: none; border-radius: 5px"
           >
             Create Order
           </a>
-          <table id="data-table">
-            <thead>
+          <table class="table table-responsive table-striped">
+            <thead class="table-secondary">
               <tr>
                 <th>Date</th>
-                <th>Item Code</th>
-                <th>Item Name</th>
+                <th>Product Name</th>
                 <th>Quantity</th>
                 <th>Action</th>
               </tr>
             </thead>
 
-            <tbody></tbody>
+            <tbody>
+              <template x-for="(list, index) in wip">
+                <tr>
+                  <td x-text="dateFormatter(list['startDate'])"></td>
+                  <td x-text="list['productName']"></td>
+                  <td x-text="list['quantity']"></td>
+                  <td style="width: 200px">
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      Delete
+                    </button>
+
+                    <!-- Modal -->
+                    <div
+                      class="modal fade ml-3"
+                      id="exampleModal"
+                      tabindex="-1"
+                      aria-labelledby="exampleModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"><strong>Confirmation</strong></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>Are You Sure to Delete this WIP ?</p>
+                            <strong style="color: red">Deleted Data will not able to be recover</strong>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a x-bind:href="`wip/delete?id=` + `${list['id']}`"
+                              ><button class="btn btn-danger">Yes</button></a
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <a><button class="btn btn-primary">Done</button></a>
+                  </td>
+                </tr></template
+              >
+            </tbody>
           </table>
         </div>
       </div>
@@ -50,4 +92,5 @@
   </main>
   <!-- MAIN -->
 </section>
+<script src="../../public/js/date-format.js"></script>
 <%- include("partials/footer.ejs") %>

@@ -1,0 +1,130 @@
+<%- include('partials/header.ejs') %>
+<link rel="stylesheet" href="../../public/css/sales-style.css" />
+<%- include('partials/sidebar.ejs') %>
+<section id="content">
+  <main>
+    <div class="container">
+      <div class="left">
+        <form action="detail/update" method="post">
+          <div
+            class="card"
+            x-data="{items: JSON.parse('<%= result %>'), id: JSON.parse('<%= id %>'), listProducts: JSON.parse('<%= listProduct%>')}"
+          >
+            <div class="card-header"><h2 class="pt-3 pl-3">Detail Sales Invoice</h2></div>
+            <div class="card-body">
+              <div>
+                <div class="row mb-3">
+                  <label for="inputSalesId" class="col-sm-2 col-form-label">Sales Invoice Id</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="salesId" :value="id[0]['salesId']" readonly />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputSalesId" class="col-sm-2 col-form-label">Sales Date</label>
+                  <div class="col-sm-10">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="salesId"
+                      :value="dateFormatter(id[0]['salesDate'])"
+                      readonly
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="table-data">
+                <table class="table table-responsive table-striped">
+                  <thead class="table-secondary">
+                    <th>No</th>
+                    <th>Product Name</th>
+                    <th>Product Price</th>
+                    <th>Quantity</th>
+                    <th>Total (Rp)</th>
+                  </thead>
+                  <tbody>
+                    <template x-for="(item, index) in items"
+                      ><tr
+                        x-data="{quantity: item['quantity'], price:'' ,selectedIndex: listProducts.findIndex(idx => idx['productId'] === item['productId']), defaultidx: listProducts.findIndex(idx => idx['productId'] === item['productId'])}"
+                      >
+                        <td hidden>
+                          <input :name="`oldItem[${index}][oldId]`" :value="items[index]['productId']" />
+                        </td>
+                        <td style="max-width: 40px">
+                          <div class="input-group">
+                            <input
+                              :name="`items[${index}][productId]`"
+                              min="1"
+                              readonly
+                              class="form-control"
+                              aria-label="Sizing example input"
+                              :value="listProducts[selectedIndex]['productId']"
+                            />
+                          </div>
+                        </td>
+                        <td style="width: 250px">
+                          <select required class="form-select" @change="selectedIndex = $event.target.value">
+                            <option :value="defaultidx" x-text="listProducts[defaultidx]['productName'] "></option>
+                            <template x-for="(item, index) in listProducts ">
+                              <option :value="index" x-text="item['productName']"></option>
+                            </template>
+                          </select>
+                        </td>
+                        <td style="width: 180px">
+                          <div class="input-group">
+                            <input
+                              min="1"
+                              class="form-control"
+                              aria-label="Sizing example input"
+                              :value="addCommas(listProducts[selectedIndex]['productPrice'])"
+                            />
+                          </div>
+                        </td>
+                        <td hidden>
+                          <input :name="`oldItem[${index}][quantity]`" :value="items[index]['quantity']" />
+                        </td>
+                        <td style="width: 100px">
+                          <div class="input-group">
+                            <input
+                              x-model="quantity"
+                              :name="`items[${index}][quantity]`"
+                              min="1"
+                              class="form-control"
+                              aria-label="Sizing example input"
+                              :value="item['quantity']"
+                            />
+                          </div>
+                        </td>
+
+                        <td>
+                          <div class="input-group">
+                            <input
+                              x-text="addCommas(listProducts[selectedIndex]['productPrice'] * quantity)"
+                              :name="`items[${index}][amount]`"
+                              :value="listProducts[selectedIndex]['productPrice'] * quantity"
+                              type="number"
+                              class="form-control"
+                              readonly
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="m-3">
+              <a href="/sales"><button type="button" class="btn btn-secondary">Back</button></a>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</section>
+
+<script src="../../public/js/date-format.js"></script>
+<script src="../../public/js/number-formater.js"></script>
+<script src="../../public/js/detail.js"></script>
+<%- include('partials/footer.ejs') %>

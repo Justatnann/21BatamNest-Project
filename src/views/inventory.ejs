@@ -15,14 +15,14 @@
   <main>
     <div class="head-title">
       <div class="left">
-        <h1>Inventory Material</h1>
+        <h1>Inventory Product</h1>
         <ul class="breadcrumb">
           <li>
             <a href="#">Dashboard</a>
           </li>
           <li><i class="bx bx-chevron-right"></i></li>
           <li>
-            <a class="active" href="#">Inventory Material</a>
+            <a class="active" href="#">Inventory Product</a>
           </li>
         </ul>
       </div>
@@ -31,38 +31,38 @@
 
     <div class="table-data">
       <div class="order">
-        <h2 style="text-align: center">Materials</h2>
+        <h2 style="text-align: center">Products</h2>
 
         <br />
 
         <a
           class="btn mb-3"
-          href="create-material"
+          href="create-product"
           style="color: white; background-color: #3c91e6; border: none; border-radius: 5px"
         >
-          Add Material
+          Add Product
         </a>
 
-        <table id="barangTable" x-data="{material: JSON.parse('<%= result %>')}">
+        <table id="barangTable" x-data="{product: JSON.parse('<%= result %>')}">
           <thead>
             <tr>
               <th>No</th>
-              <th>Material Id</th>
-              <th>Material Name</th>
+              <th>Product Id</th>
+              <th>Product Name</th>
               <th>Stock</th>
-              <th>Unit Measure</th>
+
               <th>Action</th>
             </tr>
           </thead>
 
           <tbody>
-            <template x-for="(materials, index) in material"
+            <template x-for="(products, index) in product"
               ><tr>
                 <td x-text="index + 1"></td>
-                <td x-text="materials['rawMaterialId']"></td>
-                <td x-text="materials['rawMaterialName']"></td>
-                <td x-text="materials['rawMaterialStock']"></td>
-                <td x-text="materials['unit']"></td>
+                <td x-text="products['productId']"></td>
+                <td x-text="products['productName']"></td>
+                <td x-text="products['productStock']"></td>
+
                 <td>
                   <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Delete
@@ -83,17 +83,23 @@
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                          <p>Are You Sure to Delete this Invoice ?</p>
+                          <p>Are You Sure to Delete this Item ?</p>
                           <strong style="color: red">Deleted Data will not able to be recover</strong>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-danger">Save changes</button>
+                          <div>
+                            <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a x-bind:href="`product/delete?id=` + `${products['productId']}`"
+                              ><button class="btn btn-danger">Yes</button></a
+                            >
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <a :href="`purchase/detail?id=`+`${listInvoice['purchaseId']}`" class="btn btn-primary">View</a>
+                  <a x-bind:href="`product/detail?id=` + `${products['productId']}`"
+                    ><button class="btn btn-primary">Edit</button></a
+                  >
                 </td>
               </tr>
             </template>

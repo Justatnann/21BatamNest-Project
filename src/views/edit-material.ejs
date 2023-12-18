@@ -1,21 +1,77 @@
 <%- include('partials/header.ejs') %>
-<link rel="stylesheet" href="../../public/css/detailinventory.css" />
+<link rel="stylesheet" href="../../public/css/Indexstyle.css" />
 <%- include('partials/sidebar.ejs') %>
-<div id="detail-container">
-  <h1>Detail Inventory</h1>
+<section id="content">
+  <!-- Navbar -->
 
-  <table>
-    <thead>
-      <th>No</th>
-      <th>Name</th>
-      <th>Nama Barang</th>
-      <th>Stock</th>
-      <th>Unit Measure</th>
-    </thead>
-  </table>
-  <div class="centered-content">
-    <button onclick="history.back()">Back to Inventory</button>
-  </div>
-</div>
-<script src="detailinventory.js"></script>
-<%- include('partials/footer.ejs') %>
+  <!-- Navbar -->
+  <!-- main -->
+  <main>
+    <div class="container">
+      <div class="left">
+        <div class="card" x-data="{material: JSON.parse('<%= result %>')}">
+          <div class="card-header"><h2 style="text-align: center">Materials</h2></div>
+
+          <div class="card-body">
+            <form action="detail/update" method="post">
+              <div class="row mb-3">
+                <label for="inputProductName" class="col-sm-2 col-form-label">Material Id</label>
+                <div class="col-sm-10">
+                  <input
+                    readonly
+                    type="text"
+                    class="form-control"
+                    id="product-name"
+                    name="material[0][materialId]"
+                    :value="material[0]['rawMaterialId']"
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputProductName" class="col-sm-2 col-form-label">Material Name</label>
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="product-name"
+                    name="material[0][materialName]"
+                    :value="material[0]['rawMaterialName']"
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputProductPrice" class="col-sm-2 col-form-label">Stock</label>
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    :value="material[0]['rawMaterialStock']"
+                    name="material[0][materialStock]"
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputProductPrice" class="col-sm-2 col-form-label">Unit</label>
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    :value="material[0]['unit']"
+                    name="material[0][materialUnit]"
+                  />
+                </div>
+              </div>
+              <br />
+
+              <div>
+                <button class="btn btn-primary">Submit</button>
+                <a class="btn btn-danger" href="/inventory/material">Back</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include('partials/footer.ejs') %>
+  </main>
+</section>

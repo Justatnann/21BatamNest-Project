@@ -5,9 +5,7 @@ const { products } = require("./products");
 //order awal jadi 5
 const stockMaterial = mysqlTable("stock_material", {
   stockMaterialId: int("stock_id").primaryKey({ autoIncrement: true }).autoincrement(),
-  materialId: int("material_id")
-    .references(() => rawMaterial.rawMaterialId)
-    .notNull(),
+  materialId: int("material_id").notNull(),
   initialStock: int("initial_stock").notNull(),
   stockPuchase: int("stock_purchase").notNull(),
   remainingStock: int("remaining_stock").notNull(),
@@ -16,9 +14,7 @@ const stockMaterial = mysqlTable("stock_material", {
 
 const stockProduct = mysqlTable("stock_product", {
   stockProductId: int("stock_id").primaryKey({ autoIncrement: true }).autoincrement(),
-  productId: int("product_id")
-    .references(() => products.productId)
-    .notNull(),
+  productId: int("product_id").notNull(),
   initialStock: int("initial_stock").notNull(),
   stockSold: int("stock_sold").notNull(),
   remainingStock: int("remaining_stock").notNull(),

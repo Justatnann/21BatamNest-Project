@@ -64,12 +64,12 @@
                   </td>
 
                   <td>
-                    <select required class="form-select" @change="selectedItem = $event.target.value">
-                      <option value="">-</option>
-                      <template x-for="(item, index) in items ">
-                        <option :value="index" x-text="item['productName']"></option>
-                      </template>
-                    </select>
+                      <select required class="form-select" @change="selectedItem = $event.target.value">
+                        <option value="">-</option>
+                        <template x-for="(item, index) in items ">
+                          <option :value="index" x-text="item['productName']"></option>
+                        </template>
+                      </select>
                   </td>
 
                   <td>

@@ -1,11 +1,24 @@
 const express = require("express");
 const router = express.Router();
-const path = require("path");
+
 const { createSales, addSales, getSales, getSalesDetail } = require("../services/sales");
 const { createPurchase, getPurchase, addPurchase, getPurchaseDetail } = require("../services/purchase");
 const { loginService, registerService, logoutService } = require("../services/auth");
-const { getMaterial, addProduct, getListMaterial, getMaterialDetail, addMaterial } = require("../services/inventory");
+const {
+  getMaterial,
+  addProduct,
+  getListMaterial,
+  getMaterialDetail,
+  addMaterial,
+  updateMaterial,
+  getProduct,
+  getProductDetail,
+  updateProduct,
+  deleteMaterial,
+  deleteProduct,
+} = require("../services/inventory");
 const { getSalesHistory } = require("../services/dashboard");
+const { getWIP, createWIP, addWIP, cancelWIP } = require("../services/wip");
 
 //
 //Auth
@@ -44,34 +57,20 @@ router.get("/purchase/create", createPurchase).post("/purchase/add", addPurchase
 //
 //
 //inventory
-router.get("/inventory/product", (req, res) => {
-  res.render("../src/views/inventory.ejs");
-});
+router.get("/inventory/product", getProduct).get("/inventory/product/delete", deleteProduct);
+router.get("/inventory/product/detail", getProductDetail).post("/inventory/product/detail/update", updateProduct);
+router.get("/inventory/create-product", getMaterial).post("/inventory/create-product/add", addProduct);
 
-router.get("/inventory/material", getListMaterial);
-router.get("/inventory/material/detail", getMaterialDetail);
+router.get("/inventory/material", getListMaterial).get("/inventory/material/delete", deleteMaterial);
+router.get("/inventory/material/detail", getMaterialDetail).post("/inventory/material/detail/update", updateMaterial);
 router
   .get("/inventory/create-material", (req, res) => {
     res.render("../src/views/create-material.ejs");
   })
   .post("/inventory/create-material/add", addMaterial);
 
-router.get("/inventory/create-product", getMaterial).post("/inventory/create-product/add", addProduct);
-
-router.get("/inventory/detail", (req, res) => {
-  res.render("../src/views/detailInventory.ejs");
-});
-
-router.get("/inventory/edit", (req, res) => {
-  res.render("../src/views/editInventory.ejs");
-});
-
-router.get("/inventory/delete", (req, res) => {
-  res.render("../src/views/Inventory.ejs");
-});
-
-router.get("/inventory/wip", (req, res) => {
-  res.render("../src/views/wip.ejs");
-});
+router.get("/inventory/wip", getWIP);
+router.get("/inventory/wip/delete", cancelWIP);
+router.get("/inventory/wip/create", createWIP).post("/inventory/wip/create/add", addWIP);
 
 module.exports = router;

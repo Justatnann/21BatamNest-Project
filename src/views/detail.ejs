@@ -1,11 +1,14 @@
 <%- include('partials/header.ejs') %>
-<link rel="stylesheet" href="../../public/css/Sales.css" />
+<link rel="stylesheet" href="../../public/css/sales-style.css" />
 <%- include('partials/sidebar.ejs') %>
 <section id="content">
   <main>
     <div class="container">
       <div class="left">
-        <div class="card" x-data="{items: JSON.parse('<%= result %>'), id: JSON.parse('<%= id %>')}">
+        <div
+          class="card"
+          x-data="{items: JSON.parse('<%= result %>'), id: JSON.parse('<%= id %>'), listProducts: JSON.parse('<%= listProduct%>')}"
+        >
           <div class="card-header"><h2 class="pt-3 pl-3">Detail Sales Invoice</h2></div>
           <div class="card-body">
             <div>
@@ -52,7 +55,7 @@
             </div>
           </div>
           <div class="m-3">
-            <a class="btn btn-primary" href="/"><b>Back</b></a>
+            <a href="/sales"><button type="button" class="btn btn-secondary">Back</button></a>
           </div>
         </div>
       </div>

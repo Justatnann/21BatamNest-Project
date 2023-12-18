@@ -1,38 +1,79 @@
 <%- include('partials/header.ejs') %>
-<link rel="stylesheet" href="../../public/css/detailinventory.css" />
+<link rel="stylesheet" href="../../public/css/Indexstyle.css" />
 <%- include('partials/sidebar.ejs') %>
-<div id="detail-container">
-  <h1>Detail Inventory</h1>
+<section id="content">
+  <!-- Navbar -->
 
-  <table>
-    <tr>
-      <th>ID</th>
-      <td id="detail-id"></td>
-    </tr>
-    <tr>
-      <th>Date</th>
-      <td id="detail-date"></td>
-    </tr>
-    <tr>
-      <th>Nama Barang</th>
-      <td id="detail-nama"></td>
-    </tr>
-    <tr>
-      <th>Harga Jual</th>
-      <td id="detail-harga"></td>
-    </tr>
-    <tr>
-      <th>Jumlah</th>
-      <td id="detail-jumlah"></td>
-    </tr>
-    <tr>
-      <th>Harga Total</th>
-      <td id="detail-harga-total"></td>
-    </tr>
-  </table>
-  <div class="centered-content">
-    <button onclick="history.back()">Back to Inventory</button>
-  </div>
-</div>
-<script src="detailinventory.js"></script>
+  <!-- Navbar -->
+  <!-- main -->
+  <main>
+    <div class="container">
+      <div class="left">
+        <div class="card" x-data="{product: JSON.parse('<%= result %>')}">
+          <div class="card-header"><h2 style="text-align: center">Products</h2></div>
+
+          <div class="card-body">
+            <form action="detail/update" method="post">
+              <div class="row mb-3">
+                <label for="inputProductName" class="col-sm-2 col-form-label">Product Id</label>
+                <div class="col-sm-10">
+                  <input
+                    readonly
+                    type="text"
+                    class="form-control"
+                    id="product-name"
+                    name="product[0][productId]"
+                    :value="product[0]['productId']"
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputProductName" class="col-sm-2 col-form-label">Product Name</label>
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="product-name"
+                    name="product[0][productName]"
+                    :value="product[0]['productName']"
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputProductPrice" class="col-sm-2 col-form-label">Stock</label>
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    :value="product[0]['productStock']"
+                    name="product[0][productStock]"
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputProductPrice" class="col-sm-2 col-form-label">Unit Price</label>
+                <div class="col-sm-10">
+                  <input
+                    min="1"
+                    type="number"
+                    class="form-control"
+                    :value="product[0]['productPrice']"
+                    name="product[0][productPrice]"
+                  />
+                </div>
+              </div>
+              <br />
+
+              <div>
+                <button class="btn btn-primary">Submit</button>
+                <a class="btn btn-danger" href="/inventory/product">Back</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</section>
+<script src="../../public/js/number-formater.js"></script>
 <%- include('partials/footer.ejs') %>

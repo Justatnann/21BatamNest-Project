@@ -25,4 +25,4 @@ const purchaseInvoiceItem = mysqlTable("purchase_item", {
   totalPrice: bigint("total_price", { mode: "number" }),
 });
 
-module.exports = { purchaseInvoice, purchaseInvoiceItem };
+// module.exports = { purchaseInvoice, purchaseInvoiceItem };
