@@ -11,7 +11,7 @@
   <main>
     <div class="head-title">
       <div class="left">
-        <h1>Sales</h1>
+        <h1>Purchase</h1>
         <ul class="breadcrumb">
           <li>
             <a href="#">Dashboard</a>
@@ -34,6 +34,20 @@
             href="purchase/create"
             >Create Invoice
           </a>
+
+          <div class="row" x-data="{selectedDate: ''}">
+            <div class="col">
+              <input
+                style="border-radius: 5px; width: 280px; align-self: self-end"
+                class="mb-3"
+                type="date"
+                x-model="selectedDate"
+              />
+              <a x-bind:href="`purchase?date=` + `${selectedDate}`"
+                ><button class="btn btn-secondary px-3" style="padding: 2px; border-width: 1px">submit</button></a
+              >
+            </div>
+          </div>
           <table id="data-table">
             <thead>
               <tr>
@@ -45,10 +59,13 @@
             </thead>
 
             <tbody>
+              <tr x-show="invoice.length === 0">
+                <td colspan="4" style="font-style: italic">no data found.</td>
+              </tr>
               <template x-for="(listInvoice, index) in invoice">
                 <tr>
                   <td x-text="listInvoice['purchaseId']"></td>
-                  <td x-text="dateFormatter(listInvoice['purchaseDate'])"></td>
+                  <td x-text="(listInvoice['purchaseDate'])"></td>
                   <td x-text="addCommas(listInvoice['amountPurchase'])"></td>
 
                   <td>
@@ -76,7 +93,9 @@
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-danger">Yes</button>
+                            <a x-bind:href="`purchase/delete?id=` + `${listInvoice['purchaseId']}`"
+                              ><button class="btn btn-danger">Yes</button></a
+                            >
                           </div>
                         </div>
                       </div>

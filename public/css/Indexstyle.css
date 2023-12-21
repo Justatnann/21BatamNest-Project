@@ -224,7 +224,13 @@ h3 {
 }
 
 /* NAVBAR */
+#datepicker {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 
+  flex-direction: column; /* Optional: Align items vertically */
+}
 /* MAIN */
 #content main {
   width: 100%;

@@ -1,8 +1,21 @@
 const express = require("express");
 const router = express.Router();
 
-const { createSales, addSales, getSales, getSalesDetail } = require("../services/sales");
-const { createPurchase, getPurchase, addPurchase, getPurchaseDetail } = require("../services/purchase");
+const {
+  createSales,
+  addSales,
+  getSales,
+  getSalesDetail,
+  deleteSalesInvoice,
+  getSalesFilter,
+} = require("../services/sales");
+const {
+  createPurchase,
+  getPurchase,
+  addPurchase,
+  getPurchaseDetail,
+  deletePurchaseInvoice,
+} = require("../services/purchase");
 const { loginService, registerService, logoutService } = require("../services/auth");
 const {
   getMaterial,
@@ -18,7 +31,8 @@ const {
   deleteProduct,
 } = require("../services/inventory");
 const { getSalesHistory } = require("../services/dashboard");
-const { getWIP, createWIP, addWIP, cancelWIP } = require("../services/wip");
+const { getWIP, createWIP, addWIP, cancelWIP, doneWIP } = require("../services/wip");
+const { generateSalesReport, generatePurchaseReport } = require("../services/report");
 
 //
 //Auth
@@ -41,7 +55,11 @@ router.get("/", getSalesHistory);
 //sales
 router.get("/sales", getSales);
 
+router.get("/sales/delete", deleteSalesInvoice);
+
 router.get("/sales/detail", getSalesDetail);
+
+router.get("/sales/report", generateSalesReport);
 
 router.get("/sales/create", createSales).post("/sales/add", addSales);
 
@@ -50,7 +68,11 @@ router.get("/sales/create", createSales).post("/sales/add", addSales);
 //purchase
 router.get("/purchase", getPurchase);
 
+router.get("/purchase/delete", deletePurchaseInvoice);
+
 router.get("/purchase/detail", getPurchaseDetail);
+
+router.get("/purchase/report", generatePurchaseReport);
 
 router.get("/purchase/create", createPurchase).post("/purchase/add", addPurchase);
 
@@ -70,6 +92,7 @@ router
   .post("/inventory/create-material/add", addMaterial);
 
 router.get("/inventory/wip", getWIP);
+router.get("/inventory/wip/done", doneWIP);
 router.get("/inventory/wip/delete", cancelWIP);
 router.get("/inventory/wip/create", createWIP).post("/inventory/wip/create/add", addWIP);
 

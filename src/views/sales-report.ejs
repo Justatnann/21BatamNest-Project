@@ -1,0 +1,103 @@
+<%- include('partials/header.ejs') %>
+<link rel="stylesheet" href="../../public/css/Indexstyle.css" />
+<%- include('partials/sidebar.ejs') %>
+<!-- SIDEBAR -->
+
+<!-- CONTENT -->
+<section id="content">
+  <!-- NAVBAR -->
+
+  <!-- MAIN -->
+  <main>
+    <div class="head-title">
+      <div class="left">
+        <h1>Sales Report</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">Dashboard</a>
+          </li>
+          <li><i class="bx bx-chevron-right"></i></li>
+          <li>
+            <a class="active" href="#">Sales Report</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="table-data" x-data="{invoice: JSON.parse('<%= result %>'), total: JSON.parse('<%= reportTotal %>')}">
+      <div class="order">
+        <div class="head">
+          <div style="max-width: 10%; margin: auto" class="row">
+            <img src="../../public/img/logo.png" alt="" />
+          </div>
+          <div class="mt-2">
+            <h1 style="text-align: center">21BatamNest</h1>
+            <hr />
+            <h2 class="mb-5" style="text-align: center"><strong>Sales Report</strong></h2>
+          </div>
+
+          <div class="row" x-data="{startDate: '', endDate: ''}">
+            <div class="col">
+              <input
+                style="border-radius: 5px; width: 280px; align-self: self-end"
+                class="mb-3"
+                type="date"
+                x-model="startDate"
+              />
+              <span></span>
+              <input
+                style="border-radius: 5px; width: 280px; align-self: self-end"
+                class="mb-3"
+                type="date"
+                x-model="endDate"
+              />
+              <a x-bind:href="`report?startDate=` + `${startDate}` + `&` + `endDate=` + `${endDate}`"
+                ><button class="btn btn-secondary px-3" style="padding: 2px; border-width: 1px">submit</button></a
+              >
+            </div>
+          </div>
+          <table id="data-table">
+            <thead>
+              <tr>
+                <th>Sales Date</th>
+                <th>Sales Id</th>
+                <th>Product Name</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th>Total (Rp)</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr x-show="invoice.length === 0">
+                <td colspan="4" style="font-style: italic">no data found.</td>
+              </tr>
+              <template x-for="(listInvoice, index) in invoice">
+                <tr>
+                  <td x-text="(listInvoice['salesDate'])"></td>
+                  <td x-text="listInvoice['salesId']"></td>
+                  <td x-text="listInvoice['productName']"></td>
+                  <td x-text="addCommas(listInvoice['unitPrice'])"></td>
+                  <td x-text="listInvoice['quantity']"></td>
+                  <td x-text="addCommas(listInvoice['total'])"></td>
+                </tr>
+              </template>
+              <tr>
+                <td colspan="5">Total</td>
+                <td x-text="addCommas(total)"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- MAIN -->
+</section>
+<!-- CONTENT -->
+
+<!-- <script src="../../public/js/Sales.js"></script> -->
+<script src="../../public/js/date-format.js"></script>
+<script src="../../public/js/number-formater.js"></script>
+
+<%- include('partials/footer.ejs') %> ```

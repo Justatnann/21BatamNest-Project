@@ -1,10 +1,7 @@
-function dateFormatter(date) {
-  let parsedDate = new Date(Date.parse(date));
-  return parsedDate.toLocaleString("en-US", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
+function dateFormatter(dateString) {
+  const date = new Date(dateString);
+  const formattedDate = date.toLocaleString("en-US");
+  return date;
 }
 
 Alpine.data("dateFormatter", dateFormatter);

@@ -22,7 +22,7 @@
                     type="text"
                     class="form-control"
                     name="purchaseId"
-                    :value="dateFormatter(id[0]['purchaseDate'])"
+                    :value="(items[0]['purchaseDate'])"
                     readonly
                   />
                 </div>
@@ -52,7 +52,7 @@
             </div>
           </div>
           <div class="m-3">
-            <a class="btn btn-primary" href="/sales"><b>Back</b></a>
+            <a class="btn btn-primary" href="/purchase"><b>Back</b></a>
           </div>
         </div>
       </div>

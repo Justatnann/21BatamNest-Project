@@ -4,7 +4,7 @@ const { rawMaterial } = require("./material");
 
 const recipe = mysqlTable("recipe", {
   productId: int("product_id").notNull(),
-  rawMaterialId: int("raw_material_id"),
+  rawMaterialId: int("raw_material_id").notNull(),
   quantity: int("quantity").notNull(),
 });
 

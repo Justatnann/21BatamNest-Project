@@ -3,6 +3,7 @@ const { recipe } = require("../db/schema/recipe.js");
 const { eq, desc, asc } = require("drizzle-orm");
 const { rawMaterial } = require("../db/schema/material.js");
 const { products } = require("../db/schema/products.js");
+const { salesInvoice, salesInvoiceItem } = require("../db/schema/sales.js");
 
 //product controller
 
@@ -49,7 +50,7 @@ const addProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     const product = req.body.product;
-    const recipes = req.body.recipe;
+
     await db.transaction(async (tx) => {
       await tx
         .update(products)
@@ -84,10 +85,23 @@ const deleteProduct = async (req, res) => {
   try {
     const productId = req.query.id;
     await db.transaction(async (tx) => {
-      await tx.delete(products).where(eq(products.productId, productId));
+      const recipe = await tx.select().from(recipe).where(eq(recipe.productId, productId));
+      const product = await tx.select().from(salesInvoiceItem).where(eq(products.productId, productId));
+      if (product.length <= 0) {
+        await tx.delete(recipe).where(eq(recipe.productId, productId));
+        await tx.delete(products).where(eq(products.productId, productId));
+      } else {
+        throw new Error("This Product Is In Use");
+      }
     });
     res.redirect("/inventory/product");
   } catch (error) {
+    if (error.message === "This Product Is In Use") {
+      res.status(500).render("../src/views/error.ejs", {
+        errorHeader: error.message,
+        errorDescription: "This Product Is In Use",
+      });
+    }
     res.status(500).render("../src/views/error.ejs", { errorHeader: error.message, errorDescription: error.stack });
   }
 };

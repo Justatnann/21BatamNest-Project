@@ -27,8 +27,9 @@
     <div class="table-data" x-data="{invoice: JSON.parse('<%= result %>')}">
       <div class="order">
         <div class="container">
+          <h2 style="text-align: center">Sales Invoice History</h2>
+
           <table id="data-table">
-            <h2 style="text-align: center">Sales Invoice History</h2>
             <br />
             <thead>
               <tr>
@@ -45,7 +46,7 @@
                 <tr>
                   <td x-text="index + 1"></td>
                   <td x-text="listInvoice['salesId']"></td>
-                  <td x-text="dateFormatter(listInvoice['salesDate'])"></td>
+                  <td x-text="(listInvoice['salesDate'])"></td>
                   <td x-text="addCommas(listInvoice['amountSold'])"></td>
                   <td>
                     <a x-bind:href="`sales/detail?id=` + `${listInvoice['salesId']}`" class="btn btn-primary">View</a>
@@ -63,4 +64,5 @@
 <!-- <script src="../../public/js/indexScript.js"></script> -->
 <script src="../../public/js/date-format.js"></script>
 <script src="../../public/js/number-formater.js"></script>
+<script src="../../public/js/date-picker.js"></script>
 <%- include('partials/footer.ejs') %> ```

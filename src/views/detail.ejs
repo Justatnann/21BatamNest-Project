@@ -5,10 +5,7 @@
   <main>
     <div class="container">
       <div class="left">
-        <div
-          class="card"
-          x-data="{items: JSON.parse('<%= result %>'), id: JSON.parse('<%= id %>'), listProducts: JSON.parse('<%= listProduct%>')}"
-        >
+        <div class="card" x-data="{items: JSON.parse('<%= result %>'), id: JSON.parse('<%= id %>')}">
           <div class="card-header"><h2 class="pt-3 pl-3">Detail Sales Invoice</h2></div>
           <div class="card-body">
             <div>
@@ -21,13 +18,7 @@
               <div class="row mb-3">
                 <label for="inputSalesId" class="col-sm-2 col-form-label">Sales Date</label>
                 <div class="col-sm-10">
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="salesId"
-                    :value="dateFormatter(id[0]['salesDate'])"
-                    readonly
-                  />
+                  <input type="text" class="form-control" name="salesId" :value="(items[0]['salesDate'])" readonly />
                 </div>
               </div>
             </div>

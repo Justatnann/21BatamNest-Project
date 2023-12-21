@@ -44,7 +44,7 @@
             <tbody>
               <template x-for="(list, index) in wip">
                 <tr>
-                  <td x-text="dateFormatter(list['startDate'])"></td>
+                  <td x-text="(list['startDate'])"></td>
                   <td x-text="list['productName']"></td>
                   <td x-text="list['quantity']"></td>
                   <td style="width: 200px">
@@ -80,7 +80,7 @@
                       </div>
                     </div>
 
-                    <a><button class="btn btn-primary">Done</button></a>
+                    <a x-bind:href="`wip/done?id=` + `${list['id']}`"><button class="btn btn-primary">Done</button></a>
                   </td>
                 </tr></template
               >

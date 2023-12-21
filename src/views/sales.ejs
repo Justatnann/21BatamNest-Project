@@ -26,14 +26,30 @@
 
     <div class="table-data" x-data="{invoice: JSON.parse('<%= result %>')}">
       <div class="order">
-        <div class="head">
+        <div class="head" x-data="{ selectedDate: '' }">
           <h2 style="text-align: center">Sales Invoice</h2>
+
           <a
             class="btn button-primary mb-3"
             href="sales/create"
             style="color: white; background-color: #3c91e6; border: none; border-radius: 5px"
             >Create Invoice
           </a>
+
+          <div class="row">
+            <div class="col">
+              <input
+                style="border-radius: 5px; width: 280px; align-self: self-end"
+                class="mb-3"
+                type="date"
+                x-model="selectedDate"
+              />
+              <a x-bind:href="`sales?date=` + `${selectedDate}`"
+                ><button class="btn btn-secondary px-3" style="padding: 2px; border-width: 1px">submit</button></a
+              >
+            </div>
+          </div>
+
           <table id="data-table">
             <thead>
               <tr>
@@ -45,10 +61,13 @@
             </thead>
 
             <tbody>
+              <tr x-show="invoice.length === 0">
+                <td colspan="4" style="font-style: italic">no data found.</td>
+              </tr>
               <template x-for="(listInvoice, index) in invoice">
                 <tr x-data="id: listInvoice['salesId']">
                   <td x-text="listInvoice['salesId']"></td>
-                  <td x-text="dateFormatter(listInvoice['salesDate'])"></td>
+                  <td x-text="(listInvoice['salesDate'])"></td>
                   <td x-text="addCommas(listInvoice['amountSold'])"></td>
 
                   <td>
@@ -77,7 +96,9 @@
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-danger">Yes</button>
+                            <a x-bind:href="`sales/delete?id=` + `${listInvoice['salesId']}`"
+                              ><button class="btn btn-danger">Yes</button></a
+                            >
                           </div>
                         </div>
                       </div>
@@ -96,7 +117,7 @@
 </section>
 <!-- CONTENT -->
 
-<!-- <script src="../../public/js/Sales.js"></script> -->
+<script src="../../public/js/date-picker.js"></script>
 <script src="../../public/js/date-format.js"></script>
 <script src="../../public/js/number-formater.js"></script>
 
