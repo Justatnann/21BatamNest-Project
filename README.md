@@ -12,7 +12,7 @@ note: <font color="red">Remember to change your db credentials to your own!</fon
 
 *npm run generate* just to make sure no schema is changed :D
 
-*npm run migrate*
+npm run migrate
 -
 and to run it you just need:
 -
