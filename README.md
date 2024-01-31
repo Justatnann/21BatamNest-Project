@@ -1,11 +1,9 @@
 21 Batam Nest - Project
-
+Build with Javascript using ExpressJs, EJS, AlpineJS, and a little Drizzle on Top.
 
 To install the project
 
-You need to have NPM and Mysql ready!
--
-and run this commands:
+You need to have NPM and Mysql ready and run this commands:
 -
 *npm i*
 
