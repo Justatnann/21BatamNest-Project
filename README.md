@@ -4,7 +4,7 @@ Build with Javascript using ExpressJs, EJS, AlpineJS, and a little Drizzle on To
 -
 To install the project
 
-You need to have NPM and Mysql ready and run this commands:
+You need to have NPM and Mysql(Enviroment) ready and run this commands:
 -
 *npm i*
 
